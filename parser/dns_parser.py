@@ -1,5 +1,6 @@
 # Python imports
 from collections import Counter
+from datetime import datetime
 import re
 
 # Third party imports
@@ -43,7 +44,8 @@ class DNSLogParser:
             self.add_data_to_dict(self.clients, client_ip)
             self.add_data_to_dict(self.hosts, host_name)
             self.total_records += 1
-            self.data.append({"timestamp": timestamp, "name": host_name, "client_ip": client_ip, "client_name": client_name,  "type": query_type})
+            formatted_timestamp = datetime.strptime(timestamp, "%d-%b-%Y %H:%M:%S.%f").isoformat()
+            self.data.append({"timestamp": formatted_timestamp, "name": host_name, "client_ip": client_ip, "client_name": client_name,  "type": query_type})
         else:
             print("No match found.")
 

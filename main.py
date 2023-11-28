@@ -1,18 +1,25 @@
+# Python core imports
 import os
 import argparse
-from classes import DNSLogParser
+
+# Local imports
+from parser.dns_parser import DNSLogParser
+from parser.network import send_data_to_api
 
 parser = argparse.ArgumentParser(description='Simple DNS Log Parser')
 parser.add_argument('-f', '--file', help='Path of the DNS Log File to parse', required=True)
+parser.add_argument('-c', '--collector', help='Collector ID to send data to')
+parser.add_argument('-k', '--key', help='Client Key to send data to')
 
-def process_file(file_path):
+def main(args, file_path):
     parser = DNSLogParser(file_path)
     parser.process_file()
-
+    if args.collector and args.key:
+        send_data_to_api(parser.data, args.collector, args.key)
 
 if __name__ == "__main__":
     args = parser.parse_args()
     if os.path.isfile(args.file):
-        process_file(args.file)
+        main(args, args.file)
     else:
         print(f"File {args.file} was not found")
