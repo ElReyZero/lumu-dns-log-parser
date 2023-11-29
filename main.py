@@ -1,6 +1,7 @@
 # Python core imports
 import os
 import argparse
+from uuid import UUID
 
 # Local imports
 from parser.dns_parser import DNSLogParser
@@ -16,6 +17,12 @@ def main(args, file_path):
     parser = DNSLogParser(file_path)
     parser.process_file()
     if args.collector and args.key:
+        try:
+            UUID(args.collector)
+            UUID(args.key)
+        except ValueError:
+            print("Collector ID or Client Key is not valid, cannot send data to API.")
+            return
         print("\nSending data to API, please wait...")
         send_data_to_api(parser.data, args.collector, args.key)
         print("Data sent to API successfully!")
