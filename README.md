@@ -22,9 +22,9 @@ To use the script, first you'll need to install the required dependencies:
 To ensure a clean and isolated environment for running the DNS Log Parser, it is recommended to use a virtual environment. Follow the steps below to set up a virtual environment and install the required dependencies:
 
 1. **Create a Virtual Environment:**
-   ```bash
-   python -m venv venv
-   ```
+```bash
+python -m venv venv
+```
 
 Activate the Virtual Environment:
 
@@ -39,17 +39,28 @@ source venv/bin/activate
 ```
 
 2. Install Dependencies:
-
+- On Windows:
 ```bash
 pip install -r requirements.txt
+```
+
+- On macOS/Linux:
+```bash
+pip3 install -r requirements.txt
 ```
 
 Now, your virtual environment is set up, and the required dependencies are installed.
 
 After dependencies are installed, simply run the script with the desired DNS log file as a parameter, you can also input the collector ID and API key as parameters, this will send the parsed data to the lumu API. If these parameters are not provided, the script will only generate the stats report.
 
+- On Windows:
 ```bash
-python main.py -f <log_file_name> -c <collector_id> -k <api_key>
+python main.py -f <log_file_path> -c <collector_id> -k <api_key>
+```
+
+- On macOS/Linux:
+```bash
+python3 main.py -f <log_file_path> -c <collector_id> -k <api_key>
 ```
 
 ## Sample Output
