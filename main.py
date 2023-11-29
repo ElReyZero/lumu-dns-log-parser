@@ -12,10 +12,13 @@ parser.add_argument('-c', '--collector', help='Collector ID to send data to')
 parser.add_argument('-k', '--key', help='Client Key to send data to')
 
 def main(args, file_path):
+    print("Starting DNS Log Parser...\n")
     parser = DNSLogParser(file_path)
     parser.process_file()
     if args.collector and args.key:
+        print("\nSending data to API, please wait...")
         send_data_to_api(parser.data, args.collector, args.key)
+        print("Data sent to API successfully!")
 
 if __name__ == "__main__":
     args = parser.parse_args()

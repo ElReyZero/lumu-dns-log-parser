@@ -85,6 +85,7 @@ class DNSLogParser:
         Returns:
             None
         """
+        print("Parsed File Statistics:")
         print(f"Total records: {self.total_records}\n")
         print("Client IPs Rank")
         print(tabulate(top_clients))
